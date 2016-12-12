@@ -21,7 +21,7 @@ $ cd <your_module_name>
 $ npm install
 ```
 
-- Update repository url
+- Open `.git/config` and update repository url
 ```ruby
 [remote "origin"]
     url = https://github.com/<your_repo_url>.git
