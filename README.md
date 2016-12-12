@@ -1,6 +1,9 @@
 module-stater
 ================
 
+[![Build Status](https://travis-ci.org/CodeTanzania/module-starter.svg?branch=master)](https://travis-ci.org/CodeTanzania/module-starter)
+[![Dependency Status](https://img.shields.io/david/CodeTanzania/module-starter.svg?style=flat)](https://david-dm.org/CodeTanzania/module-starter)
+
 open311 module starter
 
 ## Requirements
