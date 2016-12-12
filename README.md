@@ -10,9 +10,16 @@ open311 module starter
 - [NodeJS v6.9.2+](https://nodejs.org)
 
 ## Usage
+- Clone
 ```sh
 git clone https://github.com/CodeTanzania/module-starter.git <your_module_name>
 ``` 
+
+- Install dependencies
+```sh
+cd <your_module_name>
+npm install
+```
 
 ## Testing
 * Clone this repository
