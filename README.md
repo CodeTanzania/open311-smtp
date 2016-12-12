@@ -21,6 +21,12 @@ $ cd <your_module_name>
 $ npm install
 ```
 
+- Update repository url
+```ruby
+[remote "origin"]
+    url = https://github.com/<your_repo_url>.git
+```
+
 ## Testing
 * Clone this repository
 
