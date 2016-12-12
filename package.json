@@ -37,7 +37,7 @@
     "mocha": "^2.5.3"
   },
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.1.4",
     "lodash": "^4.17.2"
   }
 }
