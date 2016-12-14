@@ -7,9 +7,46 @@ const mongoose = require('mongoose');
 
 const Message  = mongoose.model('Message');
 
+const emailUtils = require(
+  path.join(__dirname, '..', '..', 'lib', 'util'));
+
 // the module we're testing
 const open311Smtp = require(
   path.join(__dirname, '..', '..', 'lib', 'open311-smtp'));
+
+describe('emailUtils', function() {
+  it ('should be able to validate message instances agains email', 
+	function(done) {
+	let msg = new Message({
+	});
+
+        emailUtils.validate(msg, function(err, email) {
+	  expect(err).to.exist;
+          expect(email).to.be.null;
+	});
+
+        msg.from = faker.internet.email();
+        msg.to   = faker.internet.email();
+       
+        emailUtils.validate(msg, function(err, email) {
+	  expect(err).to.be.null;
+	  expect(email).to.exist;
+          done();
+	});
+   });
+
+   it ('should be able to auto detect content type for the body',
+	function(done) {
+	
+	let plainContent = 'watch me whip, watch me neigh neigh';
+        expect(emailUtils.isHtml(plainContent)).to.be.false;
+     
+        let htmlContent = '<p>watch me whip, watch me neigh neigh</p>';
+        expect(emailUtils.isHtml(htmlContent)).to.be.true;
+
+        done();
+   });
+});
 
 describe('open311Smtp', function() {
 
