@@ -1,0 +1,10 @@
+{
+  "host": "host.gmail.com",
+  "port": 465,
+  "secure": true,
+  "auth": {
+    "user": "kbng.moses@gmail.com",
+    "pass": "!#qBVC)%1"
+  },
+  "pool": true
+}
