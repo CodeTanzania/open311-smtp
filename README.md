@@ -1,18 +1,34 @@
-module-stater
-================
+open311-smtp module
+===================
 
 [![Build Status](https://travis-ci.org/CodeTanzania/module-starter.svg?branch=master)](https://travis-ci.org/CodeTanzania/module-starter)
 [![Dependencies Status](https://david-dm.org/CodeTanzania/module-starter/status.svg?style=flat-square)](https://david-dm.org/CodeTanzania/module-starter)
 
 open311 module starter
 
-## Requirements
+## Dependencies
+### Development 
 - [NodeJS v6.9.2+](https://nodejs.org)
+- [chai](http://chaijs.com)
+- [faker](http://marak.github.io/faker.js/)
+- [grunt](http://gruntjs.com/)
+- [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint)
+- [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
+- [grunt-mocha-test](https://github.com/gruntjs/grunt-mocha-test)
+- [jshint-stylish](https://www.npmjs.com/package/jshint-stylish)
+- [mocha](https://mochajs.org/)
+
+### All
+- [async](https://caolan.github.io/async/)
+- [kue](https://github.com/Automattic/kue)
+- [lodash](https://lodash.com)
+- [nodemailer](https://github.com/nodemailer/nodemailer)
+- [open311-messages](https://github.com/CodeTanzania/open311-messages)
 
 ## Usage
 - Clone
 ```sh
-$ git clone https://github.com/CodeTanzania/module-starter.git <your_module_name>
+$ git clone https://github.com/CodeTanzania/open311-smtp.git <your_module_name>
 ``` 
 
 - Install dependencies
