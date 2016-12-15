@@ -19,10 +19,10 @@ describe('open311Smtp integration', function() {
     const message = new (mongoose.model('Message'))(details);
 
     open311Smtp.send(message, function(err, response) {
-      expect(err).not.to.exit;
-      expect(response).to.exist;
-      done();
-    });
+	expect(err).to.be.null;
+	expect(response).to.exist;
+	done();
+    }); 
   });
 
 });
