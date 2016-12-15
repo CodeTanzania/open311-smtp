@@ -12,7 +12,7 @@ const emailUtils = require(
 
 // the module we're testing
 const open311Smtp = require(
-  path.join(__dirname, '..', '..', 'lib', 'open311-smtp'));
+  path.join(__dirname, '..', '..'));
 
 describe('emailUtils', function() {
   it ('should be able to validate message instances agains email', 

@@ -6,7 +6,7 @@
 // const expect   = require('chai').expect;
 
 // const open311Smtp = require(
-//  path.join(__dirname, '..', '..', 'lib', 'open311-smtp'));
+//  path.join(__dirname, '..', '..'));
 
 describe('open311Smtp integration', function() {
   it ('should be able to send plain emails', function(done) {
