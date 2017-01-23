@@ -1,47 +1,43 @@
-open311-smtp module
-===================
+open311-smtp
+================
 
-[![Build Status](https://travis-ci.org/CodeTanzania/module-starter.svg?branch=master)](https://travis-ci.org/CodeTanzania/module-starter)
-[![Dependencies Status](https://david-dm.org/CodeTanzania/module-starter/status.svg?style=flat-square)](https://david-dm.org/CodeTanzania/module-starter)
+[![Build Status](https://travis-ci.org/CodeTanzania/open311-smtp.svg?branch=master)](https://travis-ci.org/CodeTanzania/open311-smtp)
+[![Dependencies Status](https://david-dm.org/CodeTanzania/open311-smtp/status.svg?style=flat-square)](https://david-dm.org/CodeTanzania/open311-smtp)
 
-open311 module starter
+push notification transport for open311 messages using Google FCM
 
-## Dependencies
-### Development 
+*Note!:It highly adviced to process start push in separate process for optiomal performance*
+
+## Requirements
+- [MongoDB 3.2+](https://www.mongodb.com/)
 - [NodeJS v6.9.2+](https://nodejs.org)
-- [chai](http://chaijs.com)
-- [faker](http://marak.github.io/faker.js/)
-- [grunt](http://gruntjs.com/)
-- [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint)
-- [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
-- [grunt-mocha-test](https://github.com/gruntjs/grunt-mocha-test)
-- [jshint-stylish](https://www.npmjs.com/package/jshint-stylish)
-- [mocha](https://mochajs.org/)
+- [Redis 2.8 +](https://redis.io/)
 
-### All
-- [async](https://caolan.github.io/async/)
-- [kue](https://github.com/Automattic/kue)
-- [lodash](https://lodash.com)
-- [nodemailer](https://github.com/nodemailer/nodemailer)
-- [open311-messages](https://github.com/CodeTanzania/open311-messages)
+## Installation
+```sh
+$ npm install --save open311-smtp
+```
 
 ## Usage
-- Clone
-```sh
-$ git clone https://github.com/CodeTanzania/open311-smtp.git <your_module_name>
-``` 
+```js
+const mongoose = require('mongoose');
+const Message = require('open311-messages')(<options>);
+const mail = require('open311-smtp');
 
-- Install dependencies
-```sh
-$ cd <your_module_name>
-$ npm install
+//queue message for sending
+const message = new Message(<message_details>);
+mail.queue(message);
+
+
+//start mail worker(s) in background process(s)
+//to process and send queued message(s) as mail notification(s)
+mail.start();
 ```
 
-- Open `.git/config` and update repository url
-```ruby
-[remote "origin"]
-    url = https://github.com/<your_repo_url>.git
-```
+## Options
+- All [kue supported configuration options](https://github.com/Automattic/kue#redis-connection-settings)
+
+
 
 ## Testing
 * Clone this repository
@@ -62,7 +58,7 @@ It will be nice, if you open an issue first so that we can know what is going on
 ## Licence
 The MIT License (MIT)
 
-Copyright (c) 2016 CodeTanzania & Contributors
+Copyright (c) 2016 lykmapipo, CodeTanzania & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
