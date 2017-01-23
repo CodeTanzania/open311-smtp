@@ -1,7 +1,7 @@
 'use strict';
 
-const _          = require('lodash');
-const path       = require('path');
+const _ = require('lodash');
+const path = require('path');
 const nodemailer = require('nodemailer');
 
 
@@ -10,13 +10,13 @@ const nodemailer = require('nodemailer');
 const emailUtils = require(path.join(__dirname, 'lib/util'));
 
 // transport configurations
-const smtpConfigs  = require(path.join(__dirname, 'lib/transport-config'));
+const smtpConfigs = require(path.join(__dirname, 'lib/transport-config'));
 
 // SMTP transport implementatation. The confiration is done in
 // the _init_ function
 let transporter;
 
-const _init_ = function() {
+const _init_ = function () {
 
   // -- configure the nodemailer#transport
   transporter = nodemailer
@@ -25,7 +25,7 @@ const _init_ = function() {
 
 // private implementation of the method. Invoked to
 // perform actual transport of the email.
-const _send_ = function(message, done) {
+const _send_ = function (message, done) {
 
   // is transporter initialized?
   if (_.isUndefined(transporter) || _.isNull(transporter)) {
@@ -34,19 +34,21 @@ const _send_ = function(message, done) {
   }
 
   // validate the message instance against valid email
-  emailUtils.validate(message, function(err, msg) {
+  emailUtils.validate(message, function (err, msg) {
     if (err) {
       done(err, null);
     } else {
 
       // compose the email
       let email = _.merge({
-         to: message.to,
-         subject: msg.subject
-      },
-         emailUtils.isHtml(msg.body) ? {
-         html: msg.body }: { text: msg.body
-      });
+          to: message.to,
+          subject: msg.subject
+        },
+        emailUtils.isHtml(msg.body) ? {
+          html: msg.body
+        } : {
+          text: msg.body
+        });
 
       // let nodemailer#transport do the heavy lifting
       transporter.sendMail(email, done);
@@ -78,7 +80,7 @@ exports.transport = 'open311-smtp';
  * @param {Message} message. An instance of open311 email message to enqueue
  * @since v0.1.0
  */
-exports.queue = function(message) {
+exports.queue = function (message) {
   // logic to enqueue the message
   message.transport = exports.transport;
   message.queueName = exports.queueName;
@@ -95,7 +97,7 @@ exports.queue = function(message) {
  *        is done.
  * @since v0.1.0
  */
-exports.send = function(message, done) {
+exports.send = function (message, done) {
   // logic to send the message
   // check if we're in testing mode
   if (message.options && message.options.fake) {
@@ -104,4 +106,3 @@ exports.send = function(message, done) {
     _send_(message, done);
   }
 };
-
