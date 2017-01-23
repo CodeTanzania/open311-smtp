@@ -4,9 +4,9 @@ open311-smtp
 [![Build Status](https://travis-ci.org/CodeTanzania/open311-smtp.svg?branch=master)](https://travis-ci.org/CodeTanzania/open311-smtp)
 [![Dependencies Status](https://david-dm.org/CodeTanzania/open311-smtp/status.svg?style=flat-square)](https://david-dm.org/CodeTanzania/open311-smtp)
 
-push notification transport for open311 messages using Google FCM
+smtp mail transport for open311 messages using [nodemailer](https://github.com/nodemailer/nodemailer)
 
-*Note!:It highly adviced to process start push in separate process for optiomal performance*
+*Note!:It highly adviced to process mail in separate process for optiomal performance*
 
 ## Requirements
 - [MongoDB 3.2+](https://www.mongodb.com/)
