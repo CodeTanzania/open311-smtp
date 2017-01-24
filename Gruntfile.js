@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         src: [
           'test/**/*.js',
           'test/unit/**/*.js',
-          '!test/intergration/**/*.js'
+          '!test/integration/**/*.js'
         ]
       },
       integration: {

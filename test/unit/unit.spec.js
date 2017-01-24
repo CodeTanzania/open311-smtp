@@ -24,16 +24,21 @@ describe('smtp', function () {
   });
 
   it('should be able to queue message', function (done) {
+    smtp.init();
+
     const details = {
       from: faker.internet.email(),
       to: faker.internet.email(),
       body: faker.lorem.sentence()
     };
 
-    //listen to message queue success
-    smtp.init();
-    smtp._queue.on('message:queue:success', function (message) {
+    //listen to message queue error
+    smtp._queue.on('message:queue:error', function (error) {
+      done(error);
+    });
 
+    //listen to message queue success
+    smtp._queue.on('message:queue:success', function (message) {
       expect(message).to.exist;
       expect(message._id).to.exist;
       expect(message.queueName).to.be.equal('smtp');
@@ -42,6 +47,7 @@ describe('smtp', function () {
       expect(message.mode).to.be.equal(Message.SEND_MODE_PUSH);
       expect(message.type).to.be.equal(Message.TYPE_EMAIL);
       expect(message.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+      expect(message.mime).to.be.equal(Message.MIME_TEXT);
       expect(_.first(message.to)).to.be.equal(details.to);
 
       done(null, message);
