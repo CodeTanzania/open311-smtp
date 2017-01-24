@@ -1,121 +1,93 @@
 'use strict';
 
+//dependencies
 const path = require('path');
+const _ = require('lodash');
 const expect = require('chai').expect;
-const faker = require('faker');
 const mongoose = require('mongoose');
-
+const faker = require('faker');
+const smtp = require(path.join(__dirname, '..', '..'));
 const Message = mongoose.model('Message');
 
-const emailUtils = require(
-  path.join(__dirname, '..', '..', 'lib', 'util'));
-
-// the module we're testing
-const open311Smtp = require(
-  path.join(__dirname, '..', '..'));
-
-describe('emailUtils', function () {
-  it('should be able to validate message instances agains email',
-    function (done) {
-      let msg = new Message({});
-
-      emailUtils.validate(msg, function (err, email) {
-        expect(err).to.exist;
-        expect(email).to.be.null;
-      });
-
-      msg.from = faker.internet.email();
-      msg.to = faker.internet.email();
-
-      emailUtils.validate(msg, function (err, email) {
-        expect(err).to.be.null;
-        expect(email).to.exist;
-        done();
-      });
-    });
-
-  it('should be able to auto detect content type for the body',
-    function (done) {
-
-      let plainContent = 'watch me whip, watch me neigh neigh';
-      expect(emailUtils.isHtml(plainContent)).to.be.false;
-
-      let htmlContent = '<p>watch me whip, watch me neigh neigh</p>';
-      expect(emailUtils.isHtml(htmlContent)).to.be.true;
-
-      done();
-    });
-});
-
-describe('open311Smtp', function () {
+describe('smtp', function () {
 
   it('should be an object', function (done) {
-    expect(open311Smtp).to.exist;
-    expect(open311Smtp).to.be.an('object');
+    expect(smtp).to.not.be.null;
+    expect(smtp).to.be.an('object');
     done();
   });
 
-  it('should define the \'queue\' public method', function (done) {
-    expect(open311Smtp.queue).to.exist;
-    expect(open311Smtp.queue).to.be.a('function');
+  it('should have queue name', function (done) {
+    expect(smtp.queueName).to.exist;
+    expect(smtp.queueName).to.be.equal('smtp');
     done();
   });
 
-  it('should define the \'send\' public method', function (done) {
-    expect(open311Smtp.send).to.exit;
-    expect(open311Smtp.send).to.be.a('function');
-    done();
-  });
-
-  it('should have a name used by the queue', function (done) {
-    expect(open311Smtp.queueName).to.exist;
-    expect(open311Smtp.queueName).to.be.equal(open311Smtp.queueName);
-    done();
-  });
-
-  it('should be able to queue messages', function (done) {
-
-    let message = new Message({
-      from: faker.internet.email(),
-      to: faker.internet.email(),
-      subject: faker.lorem.word(),
-      body: faker.lorem.sentence()
-    });
-
-    // enqueue message
-    open311Smtp.queue(message);
-
-    // post condition
-    expect(message.transport).to.exist;
-    expect(message.transport).to.be.equal(open311Smtp.transport);
-    expect(message.queueName).to.exist;
-    expect(message.queueName).to.be.equal(open311Smtp.queueName);
-
-    done();
-  });
-
-  it('should be able to send messages', function (done) {
-
+  it('should be able to queue message', function (done) {
     const details = {
       from: faker.internet.email(),
       to: faker.internet.email(),
-      subject: faker.lorem.word(),
+      body: faker.lorem.sentence()
+    };
+
+    //listen to message queue success
+    smtp.init();
+    smtp._queue.on('message:queue:success', function (message) {
+
+      expect(message).to.exist;
+      expect(message._id).to.exist;
+      expect(message.queueName).to.be.equal('smtp');
+      expect(message.transport).to.be.equal('open311-smtp');
+      expect(message.state).to.be.equal(Message.STATE_UNKNOWN);
+      expect(message.mode).to.be.equal(Message.SEND_MODE_PUSH);
+      expect(message.type).to.be.equal(Message.TYPE_EMAIL);
+      expect(message.direction).to.be.equal(Message.DIRECTION_OUTBOUND);
+      expect(_.first(message.to)).to.be.equal(details.to);
+
+      done(null, message);
+    });
+
+
+    const message = new Message(details);
+
+    smtp.queue(message);
+
+    expect(message.transport).to.exist;
+    expect(message.transport).to.be.equal(smtp.transport);
+    expect(message.queueName).to.exist;
+    expect(message.queueName).to.be.equal(smtp.queueName);
+    expect(message.mode).to.exists;
+    expect(message.mode).to.be.equal(Message.SEND_MODE_PUSH);
+
+  });
+
+  it('should be able to simulate message send', function (done) {
+    const details = {
+      from: faker.internet.email(),
+      to: faker.internet.email(),
       body: faker.lorem.sentence(),
       options: {
         fake: true
       }
     };
-
     const message = new Message(details);
 
-    open311Smtp.send(message, function (error, response) {
-      expect(error).not.to.be.exist;
-      expect(response).to.exist;
-      expect(response.message).to.exist;
-      expect(response.message).to.be.equal('success');
+    smtp.send(message, function (error, result) {
+
+      expect(error).to.not.exist;
+      expect(result).to.exist;
+
+      expect(result.message).to.exist;
+      expect(result.message).to.be.equal('success');
 
       done();
+
     });
+
+  });
+
+  afterEach(function (done) {
+    smtp.stop(done);
   });
 
 });
