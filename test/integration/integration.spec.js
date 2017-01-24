@@ -1,31 +1,52 @@
 'use strict';
 
-// const path     = require('path');
-// const faker    = require('faker');
-// const mongoose = require('mongoose');
-// const expect   = require('chai').expect;
+//dependencies
+const path = require('path');
+// const expect = require('chai').expect;
+const mongoose = require('mongoose');
+const smtp = require(path.join(__dirname, '..', '..'));
+const Message = mongoose.model('Message');
 
-// const open311Smtp = require(
-//  path.join(__dirname, '..', '..'));
+describe('smtp intergration', function () {
 
-describe('open311Smtp integration', function () {
-  it('should be able to send plain emails', function (done) {
-    /* const details = {
-  to:   '"First-Name Last-Name" <amail>',
-  subject: faker.lorem.word(),
-  body: faker.lorem.sentence()
+  before(function () {
+    smtp.start();
+  });
+
+  it('should be able to send email', function (done) {
+    const details = {
+      to: 'lallyelias87@gmail.com',
+      subject: 'open311-smtp test',
+      body: 'open311-smtp test'
     };
+    const message = new Message(details);
 
-    const message = new (mongoose.model('Message'))(details);
+    smtp.send(message, function (error, result) {
+      done(error, result);
+    });
 
-    open311Smtp.send(message, function(err, response) {
-  expect(err).to.be.null;
-  expect(response).to.exist;
-  done();
-    }); */
+  });
 
-    // comment the following line when everything is ok
+  it.skip('should be able to queue email for later send', function (done) {
+
+    const details = {
+      to: 'lallyelias87@gmail.com',
+      subject: 'open311-smtp test',
+      body: 'open311-smtp test'
+    };
+    const message = new Message(details);
+
+    smtp._queue.on('message:queue:success', function (message) {
+      done(null, message);
+    });
+    smtp.queue(message);
+
     done();
+
+  });
+
+  after(function (done) {
+    smtp.stop(done);
   });
 
 });
