@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt test",
-    "integration": "grunt integration"
+    "integration": "npm link . && npm link open311-smtp && grunt integration"
   },
   "repository": {
     "type": "git",
@@ -39,11 +39,10 @@
   },
   "dependencies": {
     "async": "^2.1.4",
-    "ejs": "^2.5.5",
-    "email-templates": "^2.5.4",
     "kue": "^0.11.5",
     "lodash": "^4.17.4",
     "nodemailer": "^2.7.2",
-    "open311-messages": "^0.5.0"
+    "open311-messages": "^0.5.2",
+    "striptags": "^2.2.1"
   }
 }

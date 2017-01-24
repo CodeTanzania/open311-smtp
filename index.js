@@ -18,6 +18,7 @@ const async = require('async');
 const kue = require('kue');
 const messages = require('open311-messages');
 const nodemailer = require('nodemailer');
+const striptags = require('striptags');
 const noop = function () {};
 
 
@@ -200,11 +201,21 @@ exports._send = function (message, done) {
     },
 
     function sendEmail(transportReady, next) {
-      // TODO convert to valid nodemailer smtp payload
       // TODO validate emails
-      // TODO compile email template
-      // TODO include text message
-      exports.smtp.sendMail(message, next);
+
+      //convert message to nodemailer email payload
+
+      let email = message.toObject();
+
+      // set mail html body
+      if (message.mime === exports.Message.MIME_HTML) {
+        email.html = email.body;
+      }
+
+      //always set mail text body
+      email.text = striptags(email.body || email.subject);
+
+      exports.smtp.sendMail(email, next);
     }
 
   ], done);
