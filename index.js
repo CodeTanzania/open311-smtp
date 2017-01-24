@@ -37,7 +37,7 @@ exports.defaults = {
   concurrency: 10,
 
   //default mail sender if non provided during send
-  from: 'open311<ope311@gmail.com>',
+  from: 'codetanzania@gmail.com',
 
   //default smtp port to connect
   port: 465,
@@ -50,8 +50,8 @@ exports.defaults = {
 
   // default authentication data
   auth: {
-    user: 'open311@gmail.com', //username
-    pas: 'open311@qwerty' //password for the user
+    user: 'codetanzania@gmail.com', //username
+    pass: 'code@tanzania' //password for the user
   }
 
 };

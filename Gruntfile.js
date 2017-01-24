@@ -21,14 +21,14 @@ module.exports = function (grunt) {
           '!test/intergration/**/*.js'
         ]
       },
-      intergration: {
+      integration: {
         options: {
           reporter: 'spec',
           timeout: 20000
         },
         src: [
           'test/**/*.js',
-          'test/intergration/**/*.js',
+          'test/integration/**/*.js',
           '!test/unit/**/*.js'
         ]
       }
@@ -70,6 +70,6 @@ module.exports = function (grunt) {
   //custom tasks
   grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'watch']);
   grunt.registerTask('test', ['jshint', 'mochaTest:unit']);
-  grunt.registerTask('intergration', ['jshint', 'mochaTest:intergration']);
+  grunt.registerTask('integration', ['jshint', 'mochaTest:integration']);
 
 };
