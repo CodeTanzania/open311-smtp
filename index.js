@@ -4,7 +4,7 @@
 /**
  * @module open311-smtp
  * @version 0.1.0
- * @description smtp transport for open311-messages
+ * @description smtp mail transport for open311-messages
  * @see {@link https://github.com/CodeTanzania/open311-messages}
  * @see {@link https://github.com/nodemailer/nodemailer}
  * @author lally elias <lallyelias87@gmail.com>
