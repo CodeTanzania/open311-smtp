@@ -27,22 +27,22 @@
   },
   "homepage": "https://github.com/CodeTanzania/open311-smtp",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "faker": "^3.1.0",
+    "chai": "^4.1.2",
+    "faker": "^4.1.0",
     "grunt": "^1.0.1",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-test": "^0.13.2",
     "jshint-stylish": "^2.2.1",
-    "mocha": "^3.2.0",
-    "mongoose": "^4.7.8"
+    "mocha": "^3.5.0",
+    "mongoose": "^4.11.10"
   },
   "dependencies": {
-    "async": "^2.1.4",
-    "kue": "^0.11.5",
+    "async": "^2.5.0",
+    "kue": "^0.11.6",
     "lodash": "^4.17.4",
-    "nodemailer": "^2.7.2",
-    "open311-messages": "^0.5.2",
-    "striptags": "^2.2.1"
+    "nodemailer": "^4.1.0",
+    "open311-messages": "^0.5.3",
+    "striptags": "^3.1.0"
   }
 }
