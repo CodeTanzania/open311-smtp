@@ -1,6 +1,6 @@
 {
   "name": "open311-smtp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "smtp mail transport for open311 messages",
   "main": "index.js",
   "scripts": {
@@ -29,20 +29,20 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "faker": "^4.1.0",
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-mocha-test": "^0.13.2",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-mocha-test": "^0.13.3",
     "jshint-stylish": "^2.2.1",
-    "mocha": "^3.5.0",
-    "mongoose": "^4.11.10"
+    "mocha": "^5.2.0",
+    "mongoose": "^5.1.6"
   },
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^2.6.1",
     "kue": "^0.11.6",
-    "lodash": "^4.17.4",
-    "nodemailer": "^4.1.0",
-    "open311-messages": "^0.5.3",
-    "striptags": "^3.1.0"
+    "lodash": "^4.17.10",
+    "nodemailer": "^4.6.7",
+    "open311-messages": "^0.6.3",
+    "striptags": "^3.1.1"
   }
 }

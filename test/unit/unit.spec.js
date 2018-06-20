@@ -62,7 +62,7 @@ describe('smtp', function () {
     expect(message.transport).to.be.equal(smtp.transport);
     expect(message.queueName).to.exist;
     expect(message.queueName).to.be.equal(smtp.queueName);
-    expect(message.mode).to.exists;
+    expect(message.mode).to.exist;
     expect(message.mode).to.be.equal(Message.SEND_MODE_PUSH);
 
   });
